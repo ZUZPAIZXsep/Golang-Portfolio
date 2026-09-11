@@ -1,0 +1,66 @@
+{{ define "base" }}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ .Title }}</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <div class="hero">
+
+        <!-- LEFT -->
+        <section class="hero-left">
+
+            <div class="logo">
+                KT
+            </div>
+
+            {{ template "content" . }}
+
+        </section>
+
+
+        <!-- RIGHT -->
+        <section class="hero-right">
+
+            <nav>
+
+                <a href="/about"
+                   class="{{ if eq .ActivePage "about" }}active{{ end }}">
+                    About me
+                </a>
+
+                <a href="/skills"
+                   class="{{ if eq .ActivePage "skills" }}active{{ end }}">
+                    Skills
+                </a>
+
+                <a href="/projects"
+                   class="{{ if eq .ActivePage "projects" }}active{{ end }}">
+                    Portfolio
+                </a>
+
+                <a href="/contact"
+                   class="contact-btn {{ if eq .ActivePage "contact" }}active{{ end }}">
+                    Contact me
+                </a>
+
+            </nav>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
+
+{{ end }}
