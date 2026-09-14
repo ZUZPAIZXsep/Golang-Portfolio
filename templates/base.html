@@ -33,23 +33,38 @@
 
             <nav>
 
+                <a href="/"
+                class="{{ if eq .ActivePage "home" }}active{{ end }}">
+                    ⌂
+                </a>
+
                 <a href="/about"
-                   class="{{ if eq .ActivePage "about" }}active{{ end }}">
+                class="{{ if eq .ActivePage "about" }}active{{ end }}">
                     About me
                 </a>
 
+                <a href="/education"
+                class="{{ if eq .ActivePage "education" }}active{{ end }}">
+                    Education
+                </a>
+
+                <a href="/experience"
+                class="{{ if eq .ActivePage "experience" }}active{{ end }}">
+                    Work Experience
+                </a>
+
                 <a href="/skills"
-                   class="{{ if eq .ActivePage "skills" }}active{{ end }}">
+                class="{{ if eq .ActivePage "skills" }}active{{ end }}">
                     Skills
                 </a>
 
                 <a href="/projects"
-                   class="{{ if eq .ActivePage "projects" }}active{{ end }}">
-                    Portfolio
+                class="{{ if eq .ActivePage "projects" }}active{{ end }}">
+                    Projects
                 </a>
 
                 <a href="/contact"
-                   class="contact-btn {{ if eq .ActivePage "contact" }}active{{ end }}">
+                class="{{ if eq .ActivePage "contact" }}active{{ end }}">
                     Contact me
                 </a>
 

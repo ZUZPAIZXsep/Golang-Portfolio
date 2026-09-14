@@ -129,58 +129,35 @@ nav {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
     gap: 55px;
 }
 
 nav a {
     color: white;
-
     text-decoration: none;
 
     font-size: 16px;
     font-weight: 600;
 
-    transition: 0.2s;
-}
-
-nav a:hover {
-    color: #22d3ee;
-}
-
-nav a.active {
-    color: #111;
-    background: white;
-
     padding: 16px 25px;
     border-radius: 30px;
-}
-
-/* =========================
-   CONTACT BUTTON
-========================= */
-
-.contact-btn {
-    padding: 16px 25px;
-
-    border-radius: 30px;
-
-    background: transparent;
-    color: white !important;
 
     transition: 0.2s ease;
 }
 
-.contact-btn.active {
+
+/* เมนูที่กำลังชี้ */
+nav a:hover {
     background: white;
-    color: #111 !important;
+    color: #111;
 }
 
-.contact-btn:hover {
-    background: white;
-    color: #111 !important;
-}
 
+/* เมนูของหน้าปัจจุบัน */
+nav a.active {
+    background: white;
+    color: #111;
+}
 
 /* =========================
    PROFILE IMAGE
