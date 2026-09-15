@@ -15,9 +15,10 @@ body {
 ========================= */
 
 .hero {
-    min-height: 100vh;
+    height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    overflow: hidden;
 }
 
 
@@ -328,40 +329,157 @@ nav .nav-link.active {
 
 .about-right {
     position: absolute;
-
     left: 60px;
     top: 48%;
-
     transform: translateY(-35%);
-
     width: 80%;
 }
 
 .about-right h2 {
     font-size: 32px;
     font-weight: 400;
-
     margin-bottom: 30px;
 }
 
 .about-item {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .contact-section {
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .contact-section h2 {
     font-size: 30px;
     font-weight: 400;
-
     margin-bottom: 20px;
 }
 
 .contact-section p {
     font-size: 17px;
     margin-bottom: 10px;
+}
+
+/* Education */
+
+.education-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+    margin-top: 70px;
+}
+
+.education-left {
+    max-width: 550px;
+}
+
+.education-item {
+    margin-bottom: 60px;
+}
+
+.education-item h2 {
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.education-item p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.education-right {
+    position: absolute;
+    left: 60px;
+    top: 37.5%;
+    width: 80%;
+}
+
+.education-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 117px;
+}
+
+.education-meta strong {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.education-meta span {
+    font-size: 18px;
+    color: #6b7280;
+}
+
+/* Work Experience */
+
+.experience-content {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 330px 1fr;
+    column-gap: 70px;
+    align-items: start;
+}
+
+.experience-left {
+    padding-top: 8px;
+}
+
+.experience-company {
+    margin-bottom: 140px;
+}
+
+.experience-company h3 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.experience-company span {
+    font-size: 17px;
+    color: #6b7280;
+}
+
+.experience-right {
+    position: static;
+    width: 100%;
+    padding-top: 40px;
+}
+
+.experience-item {
+    margin-bottom: 50px;
+}
+
+.experience-item h2 {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 20px;
+}
+
+.experience-item ul {
+    margin: 0;
+    padding-left: 24px;
+}
+
+.experience-item li {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.experience-company h3 {
+    white-space: nowrap;
+}
+
+.experience-company span {
+    white-space: nowrap;
 }
