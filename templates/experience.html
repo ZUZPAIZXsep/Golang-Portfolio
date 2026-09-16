@@ -4,15 +4,19 @@
 
     <div class="experience-left">
 
-        <div class="experience-company">
-            <h3>Thamuang Computer</h3>
-            <span>May 2019 — Sep 2019</span>
-        </div>
+        {{ range .WorkExperience }}
 
         <div class="experience-company">
-            <h3>Agile Technology Co., Ltd.</h3>
-            <span>Dec 2023 — Apr 2024</span>
+            <h3>{{ .Company }}</h3>
+
+            <span>
+                {{ .StartDate.Format "Jan 2006" }}
+                —
+                {{ .EndDate.Format "Jan 2006" }}
+            </span>
         </div>
+
+        {{ end }}
 
     </div>
 
@@ -20,31 +24,27 @@
 
 {{ end }}
 
+
 {{ define "right-content" }}
 
 <div class="experience-right">
 
-        <div class="experience-item">
-            <h2>IT Support Intern</h2>
+    {{ range .WorkExperience }}
 
-            <ul>
-                <li>Diagnosed and resolved hardware and software issues.</li>
-                <li>Performed computer maintenance and hardware replacement.</li>
-                <li>Assisted users with technical troubleshooting and system setup.</li>
-            </ul>
-        </div>
+    <div class="experience-item">
 
-        <div class="experience-item">
-            <h2>Web Tester / Business Analyst Assistant Intern</h2>
+        <h2>{{ .Position }}</h2>
 
-            <ul>
-                <li>Developed automated test scripts using Playwright.</li>
-                <li>Executed functional and regression testing.</li>
-                <li>Reported defects and collaborated with developers to improve software quality.</li>
-                <li>Maintained testing and project documentation.</li>
-            </ul>
-        </div>
+        <ul>
+            {{ range .Responsibilities }}
+            <li>{{ . }}</li>
+            {{ end }}
+        </ul>
 
     </div>
+
+    {{ end }}
+
+</div>
 
 {{ end }}

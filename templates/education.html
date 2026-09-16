@@ -2,54 +2,64 @@
 
 <div class="education-content">
 
-    <div class="education-left">
+    {{ range .Education }}
 
-        <div class="education-item">
-            <h2>Bachelor's Degree</h2>
+    <div class="education-item">
 
-            <p>
-                Bachelor of Engineering in<br/>
-                Electronic Engineering Technology (Computer)
-            </p>
+        <h2>{{ .Degree }}</h2>
+
+        {{ if eq .Degree "Bachelor's Degree" }}
 
             <p>
-                King Mongkut's University of Technology
-                North Bangkok
+                Bachelor of {{ .Faculty.String }} in<br>
+                {{ .Major }}
             </p>
-        </div>
 
-        <div class="education-item">
-            <h2>Vocational Certificate</h2>
+        {{ else if eq .Degree "Vocational Certificate" }}
 
             <p>
-                Certificate of Vocational Education
-                in Electronics
+                Certificate of Vocational Education in {{ .Major }}
             </p>
 
-            <p>
-                Kanchanaburi Technical College
-            </p>
-        </div>
+        {{ end }}
+
+        <p class="institution">
+            {{ .Institution }}
+        </p>
 
     </div>
+
+    {{ end }}
 
 </div>
 
 {{ end }}
 
-{{ define "right-content"}}
 
-    <div class="education-right">
+{{ define "right-content" }}
 
-        <div class="education-meta bachelor-meta">
-            <strong>GPAX 3.30</strong>
-            <span>2020 — 2024</span>
-        </div>
+<div class="education-right">
 
-        <div class="education-meta vocational-meta">
-            <strong>GPAX 3.29</strong>
-            <span>2017 — 2019</span>
-        </div>
+    {{ range .Education }}
+
+    <div class="education-meta">
+
+        <span class="gpax-label">
+            GPAX
+        </span>
+
+        <strong>
+            {{ printf "%.2f" .GPAX }}
+        </strong>
+
+        <span class="education-year">
+            {{ .StartYear }} — {{ .EndYear }}
+        </span>
 
     </div>
+
+    {{ end }}
+
+</div>
+
 {{ end }}
