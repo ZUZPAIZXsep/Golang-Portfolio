@@ -507,3 +507,188 @@ nav .nav-link.active {
 .experience-company span {
     white-space: nowrap;
 }
+
+/* =========================
+   Projects
+   ========================= */
+
+.projects-intro {
+    margin-top: 110px;
+}
+
+.projects-label {
+    display: block;
+    margin-bottom: 30px;
+
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+
+    color: #6B7280;
+}
+
+.projects-intro h1 {
+    margin: 0;
+
+    font-size: 56px;
+    line-height: 1.05;
+    font-weight: 700;
+
+    color: #111;
+}
+
+.projects-focus {
+    margin-top: 50px;
+}
+
+.projects-focus p {
+    margin: 0 0 8px;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    color: #6B7280;
+}
+
+
+/* =========================
+   Project List
+   ========================= */
+
+.projects-list {
+    margin-top: 50px;
+}
+
+.project-item {
+    padding: 30px 0;
+
+    border-bottom: 1px solid #374151;
+
+    cursor: pointer;
+
+    transition:
+        padding 0.35s ease,
+        opacity 0.35s ease;
+}
+
+.project-item:hover {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.project-item:first-child {
+    padding-top: 0;
+}
+
+.project-item:last-child:hover {
+    transform: translateY(-30px);
+}
+
+.project-number {
+    display: block;
+
+    margin-bottom: 18px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    color: #9CA3AF;;
+}
+
+.project-item h2 {
+    margin: 0;
+
+    max-width: 650px;
+
+    font-size: 25px;
+    line-height: 1.2;
+    font-weight: 600;
+
+    color: #fff;
+}
+
+.project-preview {
+    margin-top: 20px;
+
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+
+    transition:
+        max-height 0.35s ease,
+        opacity 0.25s ease,
+        margin-top 0.35s ease;
+}
+
+.project-preview p {
+    margin: 0;
+
+    max-width: 560px;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: #9CA3AF;
+}
+
+.project-item:hover .project-preview {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.project-technologies {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 18px;
+}
+
+.project-technologies span {
+    font-size: 13px;
+    color: #9CA3AF;
+}
+
+.show-detail {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+
+    cursor: pointer;
+
+    transition:
+        padding 0.25s ease,
+        background-color 0.25s ease,
+        color 0.25s ease;
+}
+
+.show-detail:hover {
+    padding: 9px 17px;
+    background-color: #fff;
+    color: #111;
+    border-radius: 999px;
+}
+
+.projects-page {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.projects-page .hero-right {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.projects-page .projects-scroll {
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+}

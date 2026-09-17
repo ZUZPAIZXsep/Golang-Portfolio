@@ -1,0 +1,67 @@
+{{ define "content" }}
+
+<div class="projects-intro">
+
+    <span class="projects-label">
+        SELECTED WORK
+    </span>
+
+    <h1>
+        What I've<br>
+        been building.
+    </h1>
+
+    <div class="projects-focus">
+        <p>Web applications.</p>
+        <p>REST APIs.</p>
+        <p>Full-stack projects.</p>
+    </div>
+
+</div>
+
+{{ end }}
+
+
+{{ define "right-content" }}
+
+<div class="projects-list">
+
+    {{ range .Projects }}
+
+    <div class="project-item">
+
+        <span class="project-number">
+            {{ printf "%02d" .ID }}
+        </span>
+
+        <h2>
+            {{ .Name }}
+        </h2>
+
+        <div class="project-preview">
+
+            <p>
+                {{ .Description }}
+            </p>
+
+            <div class="project-technologies">
+
+                {{ range .Technologies }}
+                    <span>{{ . }}</span>
+                {{ end }}
+
+            </div>
+
+            <span class="show-detail">
+                Show detail
+            </span>
+
+        </div>
+
+    </div>
+
+    {{ end }}
+
+</div>
+
+{{ end }}

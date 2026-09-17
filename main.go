@@ -15,6 +15,7 @@ type PageData struct {
 	ActivePage     string
 	Education      []Education
 	WorkExperience []WorkExperience
+	Projects       []Project
 }
 
 type Education struct {
@@ -34,6 +35,14 @@ type WorkExperience struct {
 	StartDate        time.Time
 	EndDate          time.Time
 	Responsibilities []string
+}
+
+type Project struct {
+	ID           int
+	Name         string
+	Description  string
+	Bullets      []string
+	Technologies []string
 }
 
 var db *sql.DB
@@ -253,6 +262,159 @@ func getWorkExperience() ([]WorkExperience, error) {
 	return experienceList, nil
 }
 
+// Projects page
+func projectsHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/projects.html",
+	)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	projectList, err := getProjects()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	data := PageData{
+		Title:      "Projects | Kantharakorn",
+		ActivePage: "projects",
+		Projects:   projectList,
+	}
+
+	err = tmpl.ExecuteTemplate(w, "base", data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+// query data from database projects
+func getProjects() ([]Project, error) {
+
+	// Get projects
+	rows, err := db.Query(`
+        SELECT
+            id,
+            name,
+            description
+        FROM projects
+        ORDER BY id
+    `)
+
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var projectList []Project
+
+	for rows.Next() {
+
+		var project Project
+
+		err := rows.Scan(
+			&project.ID,
+			&project.Name,
+			&project.Description,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+
+		project.Bullets = []string{}
+		project.Technologies = []string{}
+
+		projectList = append(projectList, project)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	// Get project bullets
+	for i := range projectList {
+
+		rows, err := db.Query(`
+            SELECT
+                description
+            FROM project_bullets
+            WHERE project_id = $1
+            ORDER BY sort_order
+        `, projectList[i].ID)
+
+		if err != nil {
+			return nil, err
+		}
+
+		for rows.Next() {
+
+			var bullet string
+
+			err := rows.Scan(&bullet)
+
+			if err != nil {
+				rows.Close()
+				return nil, err
+			}
+
+			projectList[i].Bullets =
+				append(projectList[i].Bullets, bullet)
+		}
+
+		if err := rows.Err(); err != nil {
+			rows.Close()
+			return nil, err
+		}
+
+		rows.Close()
+	}
+
+	// Get project technologies
+	for i := range projectList {
+
+		rows, err := db.Query(`
+            SELECT
+                technology
+            FROM project_technologies
+            WHERE project_id = $1
+            ORDER BY sort_order
+        `, projectList[i].ID)
+
+		if err != nil {
+			return nil, err
+		}
+
+		for rows.Next() {
+
+			var technology string
+
+			err := rows.Scan(&technology)
+
+			if err != nil {
+				rows.Close()
+				return nil, err
+			}
+
+			projectList[i].Technologies =
+				append(projectList[i].Technologies, technology)
+		}
+
+		if err := rows.Err(); err != nil {
+			rows.Close()
+			return nil, err
+		}
+
+		rows.Close()
+	}
+
+	return projectList, nil
+}
+
 func main() {
 
 	//conect PostgreSQL
@@ -276,6 +438,7 @@ func main() {
 	http.HandleFunc("/about", aboutHandler)
 	http.HandleFunc("/education", educationHandler)
 	http.HandleFunc("/experience", experienceHandler)
+	http.HandleFunc("/projects", projectsHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	fmt.Println("Connected to PostgreSQL")
