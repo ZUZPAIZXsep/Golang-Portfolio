@@ -4,76 +4,118 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>{{ .Title }}</title>
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <link rel="stylesheet"
+          href="/static/css/style.css">
 
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-    >
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
 
-    <div class="hero {{ if eq .ActivePage "projects" }}projects-page{{ end }}">
+    <div class="site">
 
-        <!-- LEFT -->
-        <section class="hero-left">
+        <!-- =========================
+             Navigation
+             ========================= -->
 
-            <a href="/" class="home-link {{ if eq .ActivePage "home" }}active{{ end }}">
-                <i class="bi bi-house-door-fill"></i> Home
-            </a>
+        <header class="site-header">
+
+            <nav class="main-nav">
+
+                <!-- Logo -->
+
+                <a href="/" class="nav-logo">
+                    KT
+                </a>
+
+
+                <!-- Navigation -->
+
+                <div class="nav-links">
+
+                    <a href="/"
+                       class="{{ if eq .ActivePage "home" }}active{{ end }}">
+
+                        <i class="bi bi-house-door-fill"></i>
+
+                        <span>Home</span>
+
+                    </a>
+
+
+                    <a href="/about"
+                       class="{{ if eq .ActivePage "about" }}active{{ end }}">
+
+                        <i class="bi bi-person"></i>
+
+                        <span>About Me</span>
+
+                    </a>
+
+
+                    <a href="/education"
+                       class="{{ if eq .ActivePage "education" }}active{{ end }}">
+
+                        <i class="bi bi-mortarboard"></i>
+
+                        <span>Education</span>
+
+                    </a>
+
+
+                    <a href="/experience"
+                       class="{{ if eq .ActivePage "experience" }}active{{ end }}">
+
+                        <i class="bi bi-briefcase"></i>
+
+                        <span>Work Experience</span>
+
+                    </a>
+
+                    <a href="/projects"
+                       class="{{ if eq .ActivePage "projects" }}active{{ end }}">
+
+                        <i class="bi bi-grid"></i>
+
+                        <span>Projects</span>
+
+                    </a>
+
+                    <a href="/skills"
+                       class="{{ if eq .ActivePage "skills" }}active{{ end }}">
+
+                        <i class="bi bi-code-slash"></i>
+
+                        <span>Skills</span>
+
+                    </a>
+
+                </div>
+
+            </nav>
+
+        </header>
+
+
+        <!-- =========================
+             Page Content
+             ========================= -->
+
+        <main class="page-content">
 
             {{ template "content" . }}
 
-        </section>
-
-
-        <!-- RIGHT -->
-        <section class="hero-right">
-
-            <nav>
-                <a href="/about"
-                class="{{ if eq .ActivePage "about" }}active{{ end }}">
-                    About me
-                </a>
-
-                <a href="/education"
-                class="{{ if eq .ActivePage "education" }}active{{ end }}">
-                    Education
-                </a>
-
-                <a href="/experience"
-                class="{{ if eq .ActivePage "experience" }}active{{ end }}">
-                    Work Experience
-                </a>
-
-                <a href="/projects"
-                class="{{ if eq .ActivePage "projects" }}active{{ end }}">
-                    Projects
-                </a>
-
-                <a href="/skills"
-                class="{{ if eq .ActivePage "skills" }}active{{ end }}">
-                    Skills
-                </a>
-                
-            </nav>
-
-            <div class="projects-scroll">
-                {{ template "right-content" . }}
-            </div>
-
-        </section>
+        </main>
 
     </div>
 

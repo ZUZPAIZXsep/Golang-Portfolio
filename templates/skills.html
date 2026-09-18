@@ -1,0 +1,349 @@
+{{ define "content" }}
+
+<div class="skills-page">
+
+    <!-- =========================
+         Skills Header
+         ========================= -->
+
+    <div class="skills-header">
+
+        <div class="skills-label">
+            <span></span>
+            <p>MY SKILLS</p>
+        </div>
+
+        <h1>
+            Technical & <strong>Soft Skills</strong>
+        </h1>
+
+    </div>
+
+
+    <!-- =========================
+         Skills Cards
+         ========================= -->
+
+    <div class="skills-grid">
+
+
+        <!-- =====================
+             Technical Skills
+             ===================== -->
+
+        <section class="skills-card technical-card">
+
+            <div class="skills-card-header">
+
+                <div class="skills-icon">
+                    <i class="bi bi-code-slash"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Technical Skills
+                    </h2>
+
+                    <p>
+                        Technologies and tools I use to build
+                        modern web applications and solve real-world problems.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="skills-divider"></div>
+
+
+            <div class="technical-grid">
+
+
+                <!-- Languages -->
+
+                <div class="skill-category-group">
+
+                    <h3>
+                        <i class="bi bi-terminal"></i>
+                        Languages
+                    </h3>
+
+                    <div class="skill-list">
+
+                        {{ range .Skills }}
+
+                            {{ if and
+                                (eq .Section "technical")
+                                (eq .Category "Languages") }}
+
+                                <span class="skill-tag">
+                                    {{ .Name }}
+                                </span>
+
+                            {{ end }}
+
+                        {{ end }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- Frontend -->
+
+                <div class="skill-category-group">
+
+                    <h3>
+                        <i class="bi bi-display"></i>
+                        Frontend
+                    </h3>
+
+                    <div class="skill-list">
+
+                        {{ range .Skills }}
+
+                            {{ if and
+                                (eq .Section "technical")
+                                (eq .Category "Frontend") }}
+
+                                <span class="skill-tag">
+                                    {{ .Name }}
+                                </span>
+
+                            {{ end }}
+
+                        {{ end }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- Backend -->
+
+                <div class="skill-category-group">
+
+                    <h3>
+                        <i class="bi bi-server"></i>
+                        Backend
+                    </h3>
+
+                    <div class="skill-list">
+
+                        {{ range .Skills }}
+
+                            {{ if and
+                                (eq .Section "technical")
+                                (eq .Category "Backend") }}
+
+                                <span class="skill-tag">
+                                    {{ .Name }}
+                                </span>
+
+                            {{ end }}
+
+                        {{ end }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- Databases -->
+
+                <div class="skill-category-group">
+
+                    <h3>
+                        <i class="bi bi-database"></i>
+                        Databases
+                    </h3>
+
+                    <div class="skill-list">
+
+                        {{ range .Skills }}
+
+                            {{ if and
+                                (eq .Section "technical")
+                                (eq .Category "Databases") }}
+
+                                <span class="skill-tag">
+                                    {{ .Name }}
+                                </span>
+
+                            {{ end }}
+
+                        {{ end }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- Tools -->
+
+                <div class="skill-category-group">
+
+                    <h3>
+                        <i class="bi bi-tools"></i>
+                        Tools
+                    </h3>
+
+                    <div class="skill-list">
+
+                        {{ range .Skills }}
+
+                            {{ if and
+                                (eq .Section "technical")
+                                (eq .Category "Tools") }}
+
+                                <span class="skill-tag">
+                                    {{ .Name }}
+                                </span>
+
+                            {{ end }}
+
+                        {{ end }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================
+             Soft Skills
+             ===================== -->
+
+        <section class="skills-card soft-card">
+
+            <div class="skills-card-header">
+
+                <div class="skills-icon">
+                    <i class="bi bi-person"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Soft Skills
+                    </h2>
+
+                    <p>
+                        Personal qualities that help me collaborate,
+                        adapt and achieve goals effectively.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="skills-divider"></div>
+
+
+            <div class="soft-skills-list">
+
+                {{ range .Skills }}
+
+                    {{ if eq .Section "soft" }}
+
+                        <div class="soft-skill-item">
+
+                            <div class="soft-skill-icon">
+
+                                <i class="bi bi-check2"></i>
+
+                            </div>
+
+                            <span>
+                                {{ .Name }}
+                            </span>
+
+                        </div>
+
+                    {{ end }}
+
+                {{ end }}
+
+            </div>
+
+
+            <div class="skills-divider"></div>
+
+
+            <!-- Languages -->
+
+            <div class="language-section">
+
+                <div class="skills-card-header language-header">
+
+                    <div class="skills-icon">
+                        <i class="bi bi-globe"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Languages
+                        </h2>
+
+                        <p>
+                            Languages I can communicate in.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="language-list">
+
+                    {{ range .Skills }}
+
+                        {{ if eq .Section "language" }}
+
+                            <div class="language-item">
+
+                                <span class="language-name">
+
+                                    {{ if eq .Name "Thai: Native" }}
+                                        Thai
+                                    {{ else }}
+                                        English
+                                    {{ end }}
+
+                                </span>
+
+
+                                <span class="language-level">
+
+                                    {{ if eq .Name "Thai: Native" }}
+                                        Native
+                                    {{ else }}
+                                        Intermediate (B1)
+                                    {{ end }}
+
+                                </span>
+
+                            </div>
+
+                        {{ end }}
+
+                    {{ end }}
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+{{ end }}

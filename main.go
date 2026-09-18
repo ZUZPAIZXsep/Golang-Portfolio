@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -16,6 +17,7 @@ type PageData struct {
 	Education      []Education
 	WorkExperience []WorkExperience
 	Projects       []Project
+	Skills         []Skill
 }
 
 type Education struct {
@@ -43,6 +45,14 @@ type Project struct {
 	Description  string
 	Bullets      []string
 	Technologies []string
+}
+
+type Skill struct {
+	ID        int    `json:"id"`
+	Section   string `json:"section"`
+	Category  string `json:"category"`
+	Name      string `json:"name"`
+	SortOrder int    `json:"sort_order"`
 }
 
 var db *sql.DB
@@ -415,6 +425,121 @@ func getProjects() ([]Project, error) {
 	return projectList, nil
 }
 
+// skillspage
+func skillsHandler(w http.ResponseWriter, r *http.Request) {
+
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/skills.html",
+	)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	skillList, err := getSkills()
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	data := PageData{
+		Title:      "Skills | Kantharakorn",
+		ActivePage: "skills",
+		Skills:     skillList,
+	}
+
+	err = tmpl.ExecuteTemplate(w, "base", data)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func enableCORS(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:4200")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
+func skillsAPIHandler(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
+
+	skillList, err := getSkills()
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(skillList)
+}
+
+// query data from database skill
+func getSkills() ([]Skill, error) {
+
+	rows, err := db.Query(`
+        SELECT
+            id,
+            section,
+            category,
+            name,
+            sort_order
+        FROM skills
+        ORDER BY
+            section,
+            category,
+            sort_order
+    `)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	var skillList []Skill
+
+	for rows.Next() {
+
+		var skill Skill
+
+		err := rows.Scan(
+			&skill.ID,
+			&skill.Section,
+			&skill.Category,
+			&skill.Name,
+			&skill.SortOrder,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+
+		skillList = append(skillList, skill)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return skillList, nil
+}
+
 func main() {
 
 	//conect PostgreSQL
@@ -439,10 +564,12 @@ func main() {
 	http.HandleFunc("/education", educationHandler)
 	http.HandleFunc("/experience", experienceHandler)
 	http.HandleFunc("/projects", projectsHandler)
+	http.HandleFunc("/skills", skillsHandler)
+	http.HandleFunc("/api/skills", skillsAPIHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	fmt.Println("Connected to PostgreSQL")
 	println("Server running at http://localhost:8080")
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", enableCORS(http.DefaultServeMux))
 }
